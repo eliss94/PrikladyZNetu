@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PrikladyZNetu
@@ -67,5 +68,31 @@ namespace PrikladyZNetu
                 return true;
         }
 
+        //There are three cups on a table, at positions A, B, and C. At the start, there is a ball hidden under the cup at position B.
+        //However, I perform several swaps on the cups, which is notated as two letters.
+        //For example, if I swap the cups at positions A and B, I could notate this as AB or BA.
+        //Create a function that returns the letter position that the ball is at, once I finish swapping the cups.
+        //The swaps will be given to you as an array.
+        public static string PosouvaniKelimku(string[] tahy)
+        {
+            Dictionary<char, bool> pozice = new Dictionary<char, bool>();
+            pozice.Add('A', false);
+            pozice.Add('B', true);
+            pozice.Add('C', false);
+            char vyslednaPozice = 'B';
+
+            foreach (string tah in tahy)
+            {
+                var prvniKelimek = pozice[tah[0]];
+                var druhyKelimek = pozice[tah[1]];
+                if(prvniKelimek || druhyKelimek)
+                {
+                    pozice[tah[0]] = !prvniKelimek;
+                    pozice[tah[1]] = !druhyKelimek;
+                }
+            }
+            vyslednaPozice = pozice.SingleOrDefault(x => x.Value).Key;
+            return vyslednaPozice.ToString();
+        }
     }
 }

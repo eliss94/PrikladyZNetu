@@ -10,6 +10,8 @@ namespace PrikladyZNetu
             Console.WriteLine(Reseni.MensiCislo("88", "18"));
             Console.WriteLine(Reseni.ObracecAPridavac(123456));
             Console.WriteLine(Reseni.Hexcode("#fa0129"));
+            string[] tahy = { "AB", "AC", "CB", "CB" };
+            Console.WriteLine(Reseni.PosouvaniKelimku(tahy));
         }
     }
 }
