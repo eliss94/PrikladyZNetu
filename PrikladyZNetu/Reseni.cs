@@ -85,7 +85,7 @@ namespace PrikladyZNetu
             {
                 var prvniKelimek = pozice[tah[0]];
                 var druhyKelimek = pozice[tah[1]];
-                if(prvniKelimek || druhyKelimek)
+                if (prvniKelimek || druhyKelimek)
                 {
                     pozice[tah[0]] = !prvniKelimek;
                     pozice[tah[1]] = !druhyKelimek;
@@ -93,6 +93,64 @@ namespace PrikladyZNetu
             }
             vyslednaPozice = pozice.SingleOrDefault(x => x.Value).Key;
             return vyslednaPozice.ToString();
+            }
+        
+        public static void VymenaPromennych(ref int a, ref int b)
+        {
+            a = a + b;
+            b = a - b;
+            a = a - b;
         }
+        //Create a function that takes two numbers as arguments(num, length)
+        //and returns an array of multiples of num until the array length reaches length.
+        public static int[] PoleNasobku(int cislo, int delkaPole)
+        {
+            int[] pole = new int[delkaPole];
+            pole[0] = cislo;
+            for(int i = 2; i <= delkaPole; i++)
+            {
+                pole[i-1] = i;
+            }
+            return pole;
+        }
+        //Vytvoř funkci, která spočítá faktoriál n
+        //n! = n*(n-1)*(n-2)*...*1
+        public static float Faktorial(float cislo)
+        {
+            if (cislo == 0)
+                return 1;
+            else
+            {
+                for (float i = cislo - 1; i >= 1; i--)
+                    cislo *= i;
+                return cislo;
+            }
+        }
+        //Given a string, create a function to reverse the case.
+        //All lower-cased letters should be upper-cased, and vice versa.
+        //ReverseCase("Happy Birthday") ➞ "hAPPY bIRTHDAY"
+        public static string MenicVelikostiPismen(string zadani)
+        {
+            string reseni = "";
+            foreach (char pismeno in zadani)
+            {
+                if (pismeno >= 'a' && pismeno <= 'z')
+                {
+                    reseni += pismeno.ToString().ToUpper();
+                }
+                else if(pismeno >= 'A' && pismeno <= 'Z')
+                {
+                    reseni += pismeno.ToString().ToLower();
+                }
+                else
+                {
+                    reseni += pismeno;
+                }
+            }
+            return reseni;
+        }
+
+        //Create a function that finds the word "bomb" in the given string (not case sensitive).
+        //If found, return "Duck!!!", otherwise, return "There is no bomb, relax.".
     }
 }
