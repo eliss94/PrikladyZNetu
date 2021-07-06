@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace PrikladyZNetu
 {
     static public class Reseni
     {
         public static int Obsah(int zakladna, int vyska)
-            {
+        {
             return ((zakladna * vyska) / 2);
-            }
+        }
 
         public static string MensiCislo(string n1, string n2)
         {
@@ -28,7 +27,7 @@ namespace PrikladyZNetu
         {
             List<char> cisloList = new List<char>();
             string cisloText = cislo.ToString();
-            foreach(char znak in cisloText)
+            foreach (char znak in cisloText)
             {
                 cisloList.Add(znak);
             }
@@ -36,7 +35,7 @@ namespace PrikladyZNetu
             string vysledek = "";
             foreach (char znak in cisloList)
             {
-                vysledek += znak; 
+                vysledek += znak;
             }
 
             return vysledek + cisloText;
@@ -48,24 +47,17 @@ namespace PrikladyZNetu
         //All alphabetic characters may be uppercase or lowercase.
         public static bool Hexcode(string kod)
         {
-            List<int> kodList = new List<int>();
             kod = kod.ToLower();
             if (!kod.StartsWith('#') && kod.Length != 7)
                 return false;
             else
                 kod = kod.Remove(0, 1);
-                foreach(char znak in kod)
-                { 
-                    kodList.Add(znak);
-                }
-                foreach(int polozka in kodList)
-                {
-                if (polozka >= '0' && polozka <= '9' || polozka >= 'a' && polozka <= 'f')
-                { }
-                else
-                    return false;
-                }
-                return true;
+            foreach (int znak in kod)
+            {
+                if (!(znak >= '0' && znak <= '9' || znak >= 'a' && znak <= 'f'))
+                     return false;
+            }
+            return true;
         }
 
         //There are three cups on a table, at positions A, B, and C. At the start, there is a ball hidden under the cup at position B.
@@ -93,8 +85,8 @@ namespace PrikladyZNetu
             }
             vyslednaPozice = pozice.SingleOrDefault(x => x.Value).Key;
             return vyslednaPozice.ToString();
-            }
-        
+        }
+
         public static void VymenaPromennych(ref int a, ref int b)
         {
             a = a + b;
@@ -107,9 +99,9 @@ namespace PrikladyZNetu
         {
             int[] pole = new int[delkaPole];
             pole[0] = cislo;
-            for(int i = 2; i <= delkaPole; i++)
+            for (int i = 2; i <= delkaPole; i++)
             {
-                pole[i-1] = i;
+                pole[i - 1] = i;
             }
             return pole;
         }
@@ -138,7 +130,7 @@ namespace PrikladyZNetu
                 {
                     reseni += pismeno.ToString().ToUpper();
                 }
-                else if(pismeno >= 'A' && pismeno <= 'Z')
+                else if (pismeno >= 'A' && pismeno <= 'Z')
                 {
                     reseni += pismeno.ToString().ToLower();
                 }
@@ -152,5 +144,142 @@ namespace PrikladyZNetu
 
         //Create a function that finds the word "bomb" in the given string (not case sensitive).
         //If found, return "Duck!!!", otherwise, return "There is no bomb, relax.".
+        public static string Bomb(string zadani)
+        {
+            string bomb = "Duck!";
+            string nobomb = "There is no bomb, relax.";
+            zadani = zadani.ToLower();
+            if (zadani.Contains("bomb"))
+            {
+                return bomb;
+            }
+            else
+            {
+                return nobomb;
+            }
+        }
+
+        //Create a function that takes an array of arrays with numbers.
+        //Return a new (single) array with the largest numbers of each.
+        public static int[] NajdiNejvetsi(int[][] pole)
+        {
+            int[] vysledek = new int[pole.Count()];
+            int i = 0;
+            foreach (int[] radek in pole)
+            {
+                vysledek[i] = radek.Max();
+                i += 1;
+            }
+
+            return vysledek;
+        }
+        //Create a function that takes a single character as an argument
+        //and returns the char code of its lowercased / uppercased counterpart.
+        public static int HodnotaOpacnehoPismene(char pismeno)
+        {
+            string opacnePismeno;
+            int vysledek;
+            char[] cislo;
+
+            if ('a' <= pismeno && pismeno >= 'z')
+            {
+                opacnePismeno = pismeno.ToString().ToUpper();
+                cislo = opacnePismeno.ToCharArray();
+                vysledek = cislo[0];
+                return vysledek;
+            }
+            else if ('A' <= pismeno && pismeno >= 'Z')
+            {
+                opacnePismeno = pismeno.ToString().ToLower();
+                cislo = opacnePismeno.ToCharArray();
+                vysledek = cislo[0];
+                return vysledek;
+            }
+            else
+            {
+                vysledek = pismeno;
+                return vysledek;
+            }
+        }
+        //In this challenge, you must verify the equality of two different values given the parameters a and b.
+        //Both the value and type of the parameters need to be equal.The possible types of the given parameters are:
+        //Numbers String Booleans(false or true)
+        //CheckEquality(1, true) ➞ false
+        // A number and a boolean: the value and type are different.
+        public static bool KontrolaTypu(object a, object b)
+        {
+            if (a.GetType() == b.GetType())
+                return true;
+            else
+                return false;
+        }
+        //Given the month and year as numbers, return whether that month contains a Friday 13th.
+        //HasFriday13th(3, 2020) ➞ True
+        public static bool PatekTrinacteho(int mesic, int rok)
+        {
+            DateTime patek = new DateTime(2021, 7, 2);
+            DateTime datum = new DateTime(rok, mesic, 13);
+            if (datum.DayOfWeek == patek.DayOfWeek)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        //Create a function that takes a string and returns the middle character(s).
+        //If the word's length is odd, return the middle character.
+        //If the word's length is even, return the middle two characters.
+        //GetMiddle("test") ➞ "es"
+        public static string ProstredniZnaky(string zadani)
+        {
+            string prostredniZnaky = "";
+            if (zadani.Length % 2 == 0)
+            {
+                int prostredni = (zadani.Length / 2)-1;
+                prostredniZnaky += zadani[prostredni];
+                prostredniZnaky += zadani[prostredni + 1];
+                return prostredniZnaky;
+            }
+            else
+            {
+                int prostredni = (zadani.Length / 2);
+                prostredniZnaky += zadani[prostredni];
+                return prostredniZnaky;
+            }
+        }
+       
+        //An isogram is a word that has no duplicate letters.
+        //Create a function that takes a string and returns either true or false
+        //depending on whether or not it's an "isogram".
+        public static bool Isogram(string zadani)
+        {
+            zadani = zadani.ToLower();
+            HashSet<char> pismena = new HashSet<char>();
+            foreach (char pismeno in zadani)
+            {
+                if (!pismena.Add(pismeno))
+                    return false;
+            }
+            return true;
+        }
+        //Create a function that takes a number as an argument and returns true or false
+        //depending on whether the number is symmetrical or not.
+        //A number is symmetrical when it is the same as its reverse.
+        public static bool PalindromCislo(int cisloZadani)
+        {
+            string cisloString = cisloZadani.ToString();
+            string cisloPrevracene = "";
+            for(int i = cisloString.Length-1; i > -1; i--)
+            {
+                cisloPrevracene += cisloString[i];
+            }
+            for (int i = 0; i < cisloString.Length; i++)
+            {
+                if (cisloString[i] != cisloPrevracene[i])
+                    return false;
+            }
+            return true;
+        }
+
     }
 }
