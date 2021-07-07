@@ -67,10 +67,12 @@ namespace PrikladyZNetu
         //The swaps will be given to you as an array.
         public static string PosouvaniKelimku(string[] tahy)
         {
-            Dictionary<char, bool> pozice = new Dictionary<char, bool>();
-            pozice.Add('A', false);
-            pozice.Add('B', true);
-            pozice.Add('C', false);
+            Dictionary<char, bool> pozice = new Dictionary<char, bool>
+            {
+                { 'A', false },
+                { 'B', true },
+                { 'C', false }
+            };
             char vyslednaPozice = 'B';
 
             foreach (string tah in tahy)
@@ -116,6 +118,16 @@ namespace PrikladyZNetu
                 for (float i = cislo - 1; i >= 1; i--)
                     cislo *= i;
                 return cislo;
+            }
+        }
+        public static float RekurzniFaktorial(float cislo)
+        {
+            if (cislo == 0)
+                return 1;
+            else
+            {
+                float vysledek = cislo * (RekurzniFaktorial(cislo - 1));
+                return vysledek;
             }
         }
         //Given a string, create a function to reverse the case.
@@ -168,7 +180,7 @@ namespace PrikladyZNetu
             foreach (int[] radek in pole)
             {
                 vysledek[i] = radek.Max();
-                i += 1;
+                i++;
             }
 
             return vysledek;
@@ -217,9 +229,8 @@ namespace PrikladyZNetu
         //HasFriday13th(3, 2020) ➞ True
         public static bool PatekTrinacteho(int mesic, int rok)
         {
-            DateTime patek = new DateTime(2021, 7, 2);
             DateTime datum = new DateTime(rok, mesic, 13);
-            if (datum.DayOfWeek == patek.DayOfWeek)
+            if (datum.DayOfWeek == DayOfWeek.Friday)
             {
                 return true;
             }
