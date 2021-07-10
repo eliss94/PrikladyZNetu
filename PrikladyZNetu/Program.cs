@@ -8,10 +8,8 @@ namespace PrikladyZNetu
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine(Reseni.PalindromCislo(12321));
-
-
+            int[] zadani = { 5, 6, 2, 8, 9, 1 };
+            Console.WriteLine(Reseni.SoucetDvouNejmensich(zadani));
         }
     }
 }

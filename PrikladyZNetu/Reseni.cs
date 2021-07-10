@@ -291,6 +291,26 @@ namespace PrikladyZNetu
             }
             return true;
         }
+        //ATM machines allow 4 or 6 digit PIN codes and PIN codes cannot
+        //contain anything but exactly 4 digits or exactly 6 digits.
+        //Your task is to create a function that takes a string and returns
+        //true if the PIN is valid and false if it's not.
+        public static bool Pin(string zadani)
+        {
+            if (zadani.Length != 4 && zadani.Length != 6)
+                return false;
+            else
+            {
+                return Int32.TryParse(zadani, out int pin);
+            }
+        }
+        //Create a function that takes an array of numbers and returns the sum of the two lowest positive numbers.
+        public static int SoucetDvouNejmensich(int[] zadani)
+        {
+            Array.Sort(zadani);
+            return (zadani[0] + zadani[1]);
+        }
+
 
     }
 }
