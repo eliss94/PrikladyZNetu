@@ -25,20 +25,9 @@ namespace PrikladyZNetu
         //Example: input = 123, output = 321123
         public static string ObracecAPridavac(int cislo)
         {
-            List<char> cisloList = new List<char>();
-            string cisloText = cislo.ToString();
-            foreach (char znak in cisloText)
-            {
-                cisloList.Add(znak);
-            }
-            cisloList.Reverse();
-            string vysledek = "";
-            foreach (char znak in cisloList)
-            {
-                vysledek += znak;
-            }
-
-            return vysledek + cisloText;
+            string cisloObracene = cislo.ToString();
+            cisloObracene.Reverse();
+            return cisloObracene + cislo.ToString();
         }
 
         //Create a function that determines whether a string is a valid hex code.
@@ -103,7 +92,7 @@ namespace PrikladyZNetu
             pole[0] = cislo;
             for (int i = 2; i <= delkaPole; i++)
             {
-                pole[i - 1] = i;
+                pole[i - 1] = i*cislo;
             }
             return pole;
         }

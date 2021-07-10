@@ -8,8 +8,15 @@ namespace PrikladyZNetu
     {
         static void Main(string[] args)
         {
-            int[] zadani = { 5, 6, 2, 8, 9, 1 };
-            Console.WriteLine(Reseni.SoucetDvouNejmensich(zadani));
+            //int[] zadani = { 5, 6, 2, 8, 9, 1 };
+            //Console.WriteLine(Reseni.SoucetDvouNejmensich(zadani));
+            int[] nasobky = Reseni.PoleNasobku(3, 10);
+            foreach (int nasobek in nasobky)
+            {
+                Console.Write(nasobek + ",");
+            }
+            
         }
+
     }
 }
