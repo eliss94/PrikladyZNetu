@@ -25,9 +25,19 @@ namespace PrikladyZNetu
         //Example: input = 123, output = 321123
         public static string ObracecAPridavac(int cislo)
         {
-            string cisloObracene = cislo.ToString();
-            cisloObracene.Reverse();
-            return cisloObracene + cislo.ToString();
+            string cisloString = cislo.ToString();
+            string vystup = "";
+            List<char> cisloList = new List<char>();
+            foreach(char cislicko in cisloString)
+            {
+                cisloList.Add(cislicko);
+            }
+            cisloList.Reverse();
+            foreach(char cislicko in cisloList)
+            {
+                vystup += cislicko;
+            }
+            return vystup + cisloString;
         }
 
         //Create a function that determines whether a string is a valid hex code.
@@ -209,10 +219,8 @@ namespace PrikladyZNetu
         // A number and a boolean: the value and type are different.
         public static bool KontrolaTypu(object a, object b)
         {
-            if (a.GetType() == b.GetType())
-                return true;
-            else
-                return false;
+            return (a.GetType() == b.GetType());
+                
         }
         //Given the month and year as numbers, return whether that month contains a Friday 13th.
         //HasFriday13th(3, 2020) ➞ True
