@@ -76,7 +76,7 @@ namespace PrikladyZNetu
 
             foreach (string tah in tahy)
             {
-                var prvniKelimek = pozice[tah[0]];
+                bool prvniKelimek = pozice[tah[0]];
                 var druhyKelimek = pozice[tah[1]];
                 if (prvniKelimek || druhyKelimek)
                 {
@@ -96,15 +96,20 @@ namespace PrikladyZNetu
         }
         //Create a function that takes two numbers as arguments(num, length)
         //and returns an array of multiples of num until the array length reaches length.
-        public static int[] PoleNasobku(int cislo, int delkaPole)
+        public static string PoleNasobku(int cislo, int delkaPole)
         {
+            string poleNasobku = "";
             int[] pole = new int[delkaPole];
             pole[0] = cislo;
             for (int i = 2; i <= delkaPole; i++)
             {
                 pole[i - 1] = i*cislo;
             }
-            return pole;
+            foreach(int x in pole)
+            {
+                poleNasobku += x + " ";
+            }
+            return poleNasobku;
         }
         //Vytvoř funkci, která spočítá faktoriál n
         //n! = n*(n-1)*(n-2)*...*1
@@ -307,7 +312,255 @@ namespace PrikladyZNetu
             Array.Sort(zadani);
             return (zadani[0] + zadani[1]);
         }
+        //Create a function that accepts a string of space separated numbers
+        //and returns the highest and lowest number (as a string).
+        public static string NejmensiANejvetsi(string zadani)
+        {
+            
+            string[] rozdelenaCisla = zadani.Split(' ');
+            List<int> listCisel = new List<int>();
+            int minHodnota;
+            int maxHodnota;
+            foreach(string stringCislo in rozdelenaCisla)
+            {
+                listCisel.Add(int.Parse(stringCislo));
+            }
+            minHodnota = listCisel.Min();
+            maxHodnota = listCisel.Max();
+            string vysledek = minHodnota.ToString() + ' ' + maxHodnota.ToString();
+            return vysledek;
+        }
+        //Create a function that takes a strings characters as ASCII
+        //and returns each characters hexadecimal value as a string.
+        //ConvertToHex("hello world") ➞ "68 65 6C 6C 6F 20 77 6F 72 6C 64"
+        public static string ConvertToHex(string zadani)
+        {
+            string hexadecimalValue = "";
+            foreach(char znak in zadani)
+            {
 
+                int value = Convert.ToInt32(znak);
+                hexadecimalValue += String.Format("{0:X}", value) + ' ';
+            }
+            return hexadecimalValue;
+        }
+        //Given a positive number x, if all the positive divisors of x (excluding x) add up to x,
+        //then x is said to be a perfect number.
+        //For example, the set of positive divisors of 6 excluding 6 itself is (1, 2, 3).
+        //The sum of this set is 6. Therefore, 6 is a perfect number.
+        //Given a positive number x, if all the positive divisors of x add up to a second number y,
+        //and all the positive divisors of y add up to x, then x and y are said to be a pair of amicable numbers.
+        //Create a function that takes a number and returns "Perfect" if the number is perfect,
+        //"Amicable" if the number is part of an amicable pair, or "Neither".
+        public static string PerfektniSpratelenaCisla(int cislo)
+        {
+            int soucet = 0;
+            int soucetSouctu = 0;
+            for(int i = cislo-1; i > 0; i--)
+            {
+                if(cislo % i == 0)
+                {
+                    soucet += i;
+                }
+            }
+            if(soucet == cislo)
+            {
+                return "Perfect";
+            }
+            else
+            {
+                for(int j = soucet-1; j>0; j--)
+                {
+                    if(soucet%j == 0)
+                    {
+                        soucetSouctu += j;
+                    }
+                }
+                if (soucetSouctu == cislo)
+                    return "Amicable";
+                else
+                    return "Neither";
+            }
+        }
+        //A string is an almost-palindrome if, by changing only one character, you can make it a palindrome.
+        //Create a function that returns true if a string is an almost-palindrome and false otherwise.
+        public static bool AlmostPalindrome(string zadani)
+        {
+            int pocetZmen = 0;
+            for (int i = 0; i < zadani.Length / 2; i++)
+                if (zadani[i] != zadani[zadani.Length - 1 - i])
+                {
+                    pocetZmen++;
+                    if (pocetZmen > 1)
+                        return false;
+                }
+            
+                return true; 
+        }
+        //This is a reverse coding challenge. Normally you're given explicit directions with how to create a function.
+        //Here, you must generate your own function to satisfy the relationship between the inputs and outputs.
+        //Your task is to create a function that, when fed the inputs below, produce the sample outputs shown.
+        //"A4B5C2" ➞ "AAAABBBBBCC"
+        public static string CodingChallange(string zadani)
+        {
+            string vysledek = "";
+            int pocetOpakovani;
+            char znakNaPridani = ' ';
+            for(int i = 1; i<= zadani.Length; i++)
+            {
+                if(i%2 != 0)
+                {
+                    znakNaPridani = zadani[i - 1];
+                    vysledek += znakNaPridani.ToString();
+                }
+                else
+                {
+                    pocetOpakovani = int.Parse(zadani[i-1].ToString());
+                    for(int j = 0; j< pocetOpakovani -1; j++)
+                    {
+                        vysledek += znakNaPridani;
+                    }
+                }
+            }
+            return vysledek;
+        }
+        //Write a function that takes an integer n, reverses the binary representation of that integer,
+        //and returns the new integer from the reversed binary.
+        //reversedBinaryInteger(10) ➞ 5
+        // 10 = 1010 -> 0101 = 5
+        public static int ReverseBinary(int zadani)
+        {
+            string cisloString = Convert.ToString(zadani, 2);
+            string obracenyBinarKod = "";
+            for(int i = cisloString.Length -1 ; i >= 0; i--)
+            {
+                obracenyBinarKod += cisloString[i];
+            }
+            int vysledek = Convert.ToInt32(obracenyBinarKod, 2);
+            return vysledek;
+        }
+        //Your task is to create a function that, when fed the inputs below, produce the sample outputs shown.
+        //832 ➞ 594 51 ➞ 36 7977 ➞ 198 1 ➞ 0 665 ➞ 99 149 ➞ 0
 
+        public static int OdcitacSerazenehoCisla(int zadani)
+        {
+            string zadaniString = zadani.ToString();
+            List<int> zadaniInt = new List<int>();
+            foreach(char cislicko in zadaniString)
+            {
+                zadaniInt.Add((int)char.GetNumericValue(cislicko));
+            }
+            zadaniInt.Sort();
+            string serazeneCislo = "";
+            foreach (var polozka in zadaniInt)
+                serazeneCislo += polozka;
+            int naOdecteni = int.Parse(serazeneCislo);
+            return zadani - naOdecteni;
+        }
+        //Create a function that takes a string and returns the number of alphanumeric characters that occur more than once.
+        public static int PocetOpakujicichSeZnaku(string zadani)
+        {
+            Dictionary<char, int> zadaniSlovnik = new Dictionary<char, int>();
+            int pocetOpakujicichSe = 0;
+            foreach(char znak in zadani)
+            {
+                if (!zadaniSlovnik.TryAdd(znak, 1))
+                {
+                    zadaniSlovnik[znak]++;
+                }
+                
+            }
+            foreach(var polozka in zadaniSlovnik)
+            {
+                if (polozka.Value > 1)
+                    pocetOpakujicichSe++;
+            }
+            return pocetOpakujicichSe;
+        }
+        //In recreational mathematics, a square array of numbers, usually positive integers,
+        //is called a magic square if the sums of the numbers in each row, each column,
+        //and both main diagonals are the same.
+        //Create a function that takes a square 2D array as an argument
+        //and returns a Boolean(if it is: true, if it isn't: false).
+
+        public static bool MagicSquare(int[][]zadani)
+        {
+            int[] soucty = new int[zadani.Length + zadani.Length +2];
+            int i = 0;
+            foreach (int[] radek in zadani)
+            {
+                soucty[i] = radek.Sum();
+                i++;
+            }
+            for (int p = 0; p < zadani.Length; p++)
+            {
+                int pomocnaPromenna = 0;
+                for(int q = 0; q < zadani.Length; q++)
+                {
+                    pomocnaPromenna += zadani[q][p];
+                }
+                soucty[i] = pomocnaPromenna;
+                i++;
+            }
+            int soucetDiagonaly = 0;
+            int soucetDruheDiagonaly = 0;
+            for (int u = 0; u< zadani.Length; u++)
+            {
+                soucetDiagonaly += zadani[u][u];
+            }
+            soucty[i] = soucetDiagonaly;
+            i++;
+            for (int u = zadani.Length - 1; u>=0; u--)
+            {
+                soucetDruheDiagonaly += zadani[u][u];
+            }
+            soucty[i] = soucetDruheDiagonaly;
+            for (int j = 1; j < soucty.Length; j++)
+            {
+                if (soucty[j] != soucty[0])
+                    return false;
+            }
+            return true;
+        }
+        public static bool MagicSquareDva(int[][] zadani)
+        {
+            int[] soucty = new int[zadani.Length + zadani.Length + 2];
+            int i = 0;
+            for (int p = 0; p < zadani.Length; p++)
+            {
+                int pomocnaPromenna = 0;
+                int pomocnaPromennaDva = 0;
+                for (int q = 0; q < zadani.Length; q++)
+                {
+                    pomocnaPromenna += zadani[q][p];
+                    pomocnaPromennaDva += zadani[p][q];
+                }
+                soucty[i] = pomocnaPromenna;
+                i++;
+                soucty[i] = pomocnaPromennaDva;
+                i++;
+            }
+            int soucetDiagonaly = 0;
+            int soucetDruheDiagonaly = 0;
+            for (int u = 0; u < zadani.Length; u++)
+            {
+                soucetDiagonaly += zadani[u][u];
+            }
+            soucty[i] = soucetDiagonaly;
+            i++;
+            for (int u = zadani.Length - 1; u >= 0; u--)
+            {
+                int v = 0;
+                soucetDruheDiagonaly += zadani[u][v];
+                v++;
+            }
+            soucty[i] = soucetDruheDiagonaly;
+            for (int j = 1; j < soucty.Length; j++)
+            {
+                if (soucty[j] != soucty[0])
+                    return false;
+            }
+            return true;
+        }
     }
 }

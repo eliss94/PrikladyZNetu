@@ -2,6 +2,7 @@
 using System;
 using TechTalk.SpecFlow;
 using NUnit.Framework;
+using System.Linq;
 
 namespace SpecFlowTestyNaReseni
 {
@@ -64,7 +65,7 @@ namespace SpecFlowTestyNaReseni
 
         #region Obracec a zadavac
         int _zadaneCislo;
-        
+
         [Given(@"zadane cislo je (.*)")]
         public void GivenZadaneCisloJe(int zadaneCislo)
         {
@@ -75,7 +76,7 @@ namespace SpecFlowTestyNaReseni
         {
             _vysledekstring = Reseni.ObracecAPridavac(_zadaneCislo);
         }
-        
+
         #endregion
 
         #region Posouvani kelimku
@@ -93,11 +94,7 @@ namespace SpecFlowTestyNaReseni
         }
         #endregion
 
-        [Then(@"dostanu (.*)")]
-        public void ThenDostanuVysledek(string vysledek)
-        {
-            Assert.That(_vysledekstring == vysledek);
-        }
+        
 
         #region Hexcode
         string _kod;
@@ -152,7 +149,7 @@ namespace SpecFlowTestyNaReseni
         [When(@"na nem vypoctu faktorial")]
         public void WhenNaNemVypoctuFaktorial()
         {
-           _faktorial = Reseni.Faktorial(_cislo);
+            _faktorial = Reseni.Faktorial(_cislo);
         }
         [Then(@"vysledek vypoctu je (.*)")]
         public void ThenVysledekVypoctuJe(int faktorial)
@@ -161,5 +158,58 @@ namespace SpecFlowTestyNaReseni
         }
         #endregion
 
+        #region Vraceni max a min cisla
+        string _zadanaCisla;
+        [Given(@"mame zadany string cisel (.*)")]
+        public void GivenMameZadanyStringCisel(string zadanaCisla)
+        {
+            _zadanaCisla = zadanaCisla;
+        }
+        [When(@"vybereme nejmensi a nejvetsi cislo")]
+        public void WhenVyberemeNejmensiANejvetsiCislo()
+        {
+            _vysledekstring = Reseni.NejmensiANejvetsi(_zadanaCisla);
+        }
+        #endregion
+
+        int _cisloKNasobeni;
+        int _delkaPole;
+        string vysledekString = "";
+        [Given(@"mame zadane (.*) a (.*)")]
+        public void GivenMameZadaneA(int cislo, int delkaPole)
+        {
+            _cisloKNasobeni = cislo;
+            _delkaPole = delkaPole;
+        }
+
+        [When(@"vypocteme pole nadobku")]
+        public void WhenVypoctemePoleNadobku()
+        {
+            vysledekString = Reseni.PoleNasobku(_cisloKNasobeni, _delkaPole);
+        }
+
+        [Then(@"dostaneme (.*)")]
+        public void ThenDostaneme(string poleNasobku)
+        {
+            Assert.That(poleNasobku + " " == vysledekString);
+        }
+
+        string _zadanyString;
+        string _konecnyString;
+        [Given(@"string (.*)")]
+        public void GivenString(string zadani)
+        {
+            _zadanyString = zadani;
+        }
+        [When(@"otocime velikost pismen")]
+        public void WhenOtocimeVelikostPismen()
+        {
+            _vysledekstring = Reseni.MenicVelikostiPismen(_zadanyString);
+        }
+        [Then(@"dostanu (.*)")]
+        public void ThenDostanuVysledek(string vysledek)
+        {
+            Assert.That(_vysledekstring == vysledek);
+        }
     }
 }
