@@ -105,4 +105,8 @@ Scenario: Obraceni velikosti pismen
 	| zadani | vysledek |
 	| Tom    | tOM      |
 	| Happy  | hAPPY    |
+
+
+
+
 	

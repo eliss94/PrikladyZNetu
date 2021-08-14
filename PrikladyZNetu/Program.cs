@@ -39,7 +39,17 @@ namespace PrikladyZNetu
             //    zadani2 += " ";
             //}
             //Console.WriteLine(zadani2);
-            Console.WriteLine(Reseni.MenicVelikostiPismen("Happy Birthday"));
+            //Console.WriteLine(Reseni.MenicVelikostiPismen("Happy Birthday"));
+            //DateTime cas = new DateTime(1, 1, 1, 12, 5, 59);
+            //cas = cas.AddSeconds(1);
+            //string casString = cas.Hour.ToString() + cas.Minute.ToString() + cas.Second.ToString();
+            //Console.WriteLine(casString);
+            //cas = cas.AddSeconds(1);
+            //casString = cas.Hour.ToString() + cas.Minute.ToString() + cas.Second.ToString();
+            //Console.WriteLine(casString);
+
+            Console.WriteLine(Reseni.TimeSteps(2, 12, 22, 4, 35, 10));
+            
         }
 
     }

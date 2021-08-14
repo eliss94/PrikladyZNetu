@@ -548,9 +548,9 @@ namespace PrikladyZNetu
             }
             soucty[i] = soucetDiagonaly;
             i++;
+            int v = 0;
             for (int u = zadani.Length - 1; u >= 0; u--)
             {
-                int v = 0;
                 soucetDruheDiagonaly += zadani[u][v];
                 v++;
             }
@@ -562,5 +562,73 @@ namespace PrikladyZNetu
             }
             return true;
         }
+        //Create a function that takes two times of day (hours, minutes, seconds) and returns
+        //the number of occurences of palindrome timestamps within that range, inclusive.
+        //A palindrome timestamp should be read the same hours : minutes : seconds as seconds : minutes : hours,
+        //keeping in mind the seconds and hours digits will reverse.For example, 02 : 11 : 20 is a palindrome timestamp.
+        public static int TimeSteps(int hodina1, int minuta1, int sekunda1, int hodina2, int minuta2, int sekunda2)
+        {
+            int palindromStepu = 0;
+            DateTime prvniCas = new DateTime(1, 1, 1, hodina1, minuta1, sekunda1);
+            DateTime druhyCas = new DateTime(1, 1, 1, hodina2, minuta2, sekunda2);
+            //while((prvniCas.Hour != druhyCas.Hour)||(prvniCas.Minute != druhyCas.Minute)||(prvniCas.Second != druhyCas.Second))
+            while (!IsEqualTime(prvniCas, druhyCas))
+            {
+                if (IsPalindrom(prvniCas))
+                {
+                    palindromStepu++;
+                }
+                prvniCas = prvniCas.AddSeconds(1);
+            }
+            return palindromStepu;
+        }
+        private static bool IsPalindrom(DateTime prvniCas)
+        {
+            string cas = "";
+            if (prvniCas.Hour < 10)
+            {
+                cas += "0" + prvniCas.Hour.ToString();
+            }
+            else
+            {
+                cas += prvniCas.Hour.ToString();
+            }
+            if(prvniCas.Minute <10)
+            {
+                cas += "0" + prvniCas.Minute.ToString();
+            }
+            else
+            {
+                cas += prvniCas.Minute.ToString();
+            }
+            if(prvniCas.Second < 10 )
+            {
+                cas += "0" + prvniCas.Second.ToString();
+            }
+            else
+            {
+                cas += prvniCas.Second.ToString();
+            }
+            for(int i = 0; i < cas.Length/2; i++)
+            {
+                if (cas[i] != cas[cas.Length -1 -i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private static bool IsEqualTime(DateTime prvniCas, DateTime druhyCas)
+        {
+            if (prvniCas.Hour != druhyCas.Hour)
+                return false;
+            else if (prvniCas.Minute != druhyCas.Minute)
+                return false;
+            else if (prvniCas.Second != prvniCas.Second)
+                return false;
+            else
+                return true;
+        }
+
     }
 }

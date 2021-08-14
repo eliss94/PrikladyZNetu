@@ -3,16 +3,25 @@ using System;
 using TechTalk.SpecFlow;
 using NUnit.Framework;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SpecFlowTestyNaReseni
 {
     [Binding]
     public class ScenareTestuSteps
     {
+        public string _vysledekstring;
+        [Then(@"dostanu (.*)")]
+        public void ThenDostanuVysledek(string vysledek)
+        {
+            Assert.That(_vysledekstring == vysledek);
+        }
+
         #region Obsah trojuhelniku
         int _vyska;
         int _zakladna;
         int _vysledek;
+        
         [Given(@"zakladna trojuhelniku je (.*)")]
         public void GivenZakladnaTrojuhelnikuJe(int zakladna)
         {
@@ -42,7 +51,7 @@ namespace SpecFlowTestyNaReseni
         #region Mensi z obou cisel
         string _prvniCislo;
         string _druheCislo;
-        string _vysledekstring;
+      
         [Given(@"prvni cislo je (.*)")]
         public void GivenPrvniCisloJeCislo(string prvniCislo)
         {
@@ -59,6 +68,7 @@ namespace SpecFlowTestyNaReseni
         public void WhenVyberuMensiZObou()
         {
             _vysledekstring = Reseni.MensiCislo(_prvniCislo, _druheCislo);
+            
         }
 
         #endregion
@@ -81,7 +91,6 @@ namespace SpecFlowTestyNaReseni
 
         #region Posouvani kelimku
         string[] _poleTahu;
-        string _vyslednyKelimek;
         [Given(@"dostanu zadane (.*)")]
         public void GivenDostanuZadane(string zadaneTahy)
         {
@@ -195,7 +204,6 @@ namespace SpecFlowTestyNaReseni
         }
 
         string _zadanyString;
-        string _konecnyString;
         [Given(@"string (.*)")]
         public void GivenString(string zadani)
         {
@@ -206,10 +214,7 @@ namespace SpecFlowTestyNaReseni
         {
             _vysledekstring = Reseni.MenicVelikostiPismen(_zadanyString);
         }
-        [Then(@"dostanu (.*)")]
-        public void ThenDostanuVysledek(string vysledek)
-        {
-            Assert.That(_vysledekstring == vysledek);
-        }
+        
+
     }
 }
