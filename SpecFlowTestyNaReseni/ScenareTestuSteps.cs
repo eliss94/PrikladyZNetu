@@ -10,12 +10,12 @@ namespace SpecFlowTestyNaReseni
     [Binding]
     public class ScenareTestuSteps
     {
-        public string _vysledekstring;
-        [Then(@"dostanu (.*)")]
-        public void ThenDostanuVysledek(string vysledek)
+        private readonly SheredData sheredData;
+        public ScenareTestuSteps(SheredData sheredData)
         {
-            Assert.That(_vysledekstring == vysledek);
+            this.sheredData = sheredData;
         }
+        
 
         #region Obsah trojuhelniku
         int _vyska;
@@ -67,7 +67,7 @@ namespace SpecFlowTestyNaReseni
         [When(@"vyberu mensi z obou")]
         public void WhenVyberuMensiZObou()
         {
-            _vysledekstring = Reseni.MensiCislo(_prvniCislo, _druheCislo);
+            sheredData._vyslednyString = Reseni.MensiCislo(_prvniCislo, _druheCislo);
             
         }
 
@@ -84,7 +84,7 @@ namespace SpecFlowTestyNaReseni
         [When(@"ho otocim a pridam puvodni cislo")]
         public void WhenHoOtocimAPridamPuvodniCislo()
         {
-            _vysledekstring = Reseni.ObracecAPridavac(_zadaneCislo);
+            sheredData._vyslednyString = Reseni.ObracecAPridavac(_zadaneCislo);
         }
 
         #endregion
@@ -99,11 +99,37 @@ namespace SpecFlowTestyNaReseni
         [When(@"aplikuju tahy na kelimky")]
         public void WhenAplikujuTahyNaKelimky()
         {
-            _vysledekstring = Reseni.PosouvaniKelimku(_poleTahu);
+            sheredData._vyslednyString = Reseni.PosouvaniKelimku(_poleTahu);
         }
         #endregion
 
-        
+        #region Menic velikosti pismen
+        string _zadanyString;
+        [Given(@"string (.*)")]
+        public void GivenString(string zadani)
+        {
+            _zadanyString = zadani;
+        }
+        [When(@"otocime velikost pismen")]
+        public void WhenOtocimeVelikostPismen()
+        {
+            sheredData._vyslednyString = Reseni.MenicVelikostiPismen(_zadanyString);
+        }
+        #endregion
+
+        #region Vraceni max a min cisla
+        string _zadanaCisla;
+        [Given(@"mame zadany string cisel (.*)")]
+        public void GivenMameZadanyStringCisel(string zadanaCisla)
+        {
+            _zadanaCisla = zadanaCisla;
+        }
+        [When(@"vybereme nejmensi a nejvetsi cislo")]
+        public void WhenVyberemeNejmensiANejvetsiCislo()
+        {
+            sheredData._vyslednyString = Reseni.NejmensiANejvetsi(_zadanaCisla);
+        }
+        #endregion
 
         #region Hexcode
         string _kod;
@@ -167,20 +193,6 @@ namespace SpecFlowTestyNaReseni
         }
         #endregion
 
-        #region Vraceni max a min cisla
-        string _zadanaCisla;
-        [Given(@"mame zadany string cisel (.*)")]
-        public void GivenMameZadanyStringCisel(string zadanaCisla)
-        {
-            _zadanaCisla = zadanaCisla;
-        }
-        [When(@"vybereme nejmensi a nejvetsi cislo")]
-        public void WhenVyberemeNejmensiANejvetsiCislo()
-        {
-            _vysledekstring = Reseni.NejmensiANejvetsi(_zadanaCisla);
-        }
-        #endregion
-
         int _cisloKNasobeni;
         int _delkaPole;
         string vysledekString = "";
@@ -201,18 +213,6 @@ namespace SpecFlowTestyNaReseni
         public void ThenDostaneme(string poleNasobku)
         {
             Assert.That(poleNasobku + " " == vysledekString);
-        }
-
-        string _zadanyString;
-        [Given(@"string (.*)")]
-        public void GivenString(string zadani)
-        {
-            _zadanyString = zadani;
-        }
-        [When(@"otocime velikost pismen")]
-        public void WhenOtocimeVelikostPismen()
-        {
-            _vysledekstring = Reseni.MenicVelikostiPismen(_zadanyString);
         }
         
 
